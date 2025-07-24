@@ -3,100 +3,165 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Chatbot</title>
+  <title>Modern Chatbot</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     body {
-      background: #f4f6fb;
-      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #6a82fb 0%, #fc5c7d 100%);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
     }
     .chat-container {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-      width: 350px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 22px;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+      width: 370px;
       max-width: 95vw;
       display: flex;
       flex-direction: column;
-      height: 500px;
+      height: 540px;
       overflow: hidden;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(4px);
     }
     .chat-header {
-      background: #4f8cff;
+      background: linear-gradient(90deg, #6a82fb 0%, #fc5c7d 100%);
       color: #fff;
-      padding: 16px;
-      font-size: 1.2em;
+      padding: 18px 0 18px 0;
+      font-size: 1.3em;
       text-align: center;
-      font-weight: bold;
+      font-weight: 600;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(252,92,125,0.08);
+    }
+    .chat-header i {
+      font-size: 1.3em;
+      color: #fff;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08));
     }
     .chat-messages {
       flex: 1;
-      padding: 16px;
+      padding: 18px 16px 12px 16px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
+      background: transparent;
     }
     .message {
       max-width: 80%;
-      padding: 10px 14px;
-      border-radius: 18px;
+      padding: 12px 16px;
+      border-radius: 18px 18px 18px 4px;
       font-size: 1em;
-      line-height: 1.4;
+      line-height: 1.5;
       word-break: break-word;
+      box-shadow: 0 2px 8px rgba(106,130,251,0.06);
+      position: relative;
+      animation: fadeIn 0.3s;
     }
     .user {
       align-self: flex-end;
-      background: #e1f0ff;
-      color: #333;
+      background: linear-gradient(90deg, #6a82fb 0%, #fc5c7d 100%);
+      color: #fff;
+      border-bottom-right-radius: 18px;
+      border-bottom-left-radius: 4px;
     }
     .bot {
       align-self: flex-start;
-      background: #f0f0f0;
-      color: #222;
+      background: #f4f6fb;
+      color: #333;
+      border-bottom-left-radius: 18px;
+      border-bottom-right-radius: 4px;
+    }
+    .bot .bot-icon {
+      position: absolute;
+      left: -32px;
+      top: 8px;
+      font-size: 1.2em;
+      color: #6a82fb;
+      background: #fff;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(106,130,251,0.08);
     }
     .chat-input {
       display: flex;
-      border-top: 1px solid #eee;
-      padding: 10px;
+      border-top: 1.5px solid #f0f0f0;
+      padding: 12px 10px;
       background: #fafbfc;
+      align-items: center;
+      gap: 8px;
     }
     .chat-input input {
       flex: 1;
       border: none;
       outline: none;
-      padding: 10px;
+      padding: 12px 16px;
       border-radius: 20px;
       font-size: 1em;
       background: #f4f6fb;
-      margin-right: 8px;
+      margin-right: 4px;
+      box-shadow: 0 2px 8px rgba(106,130,251,0.04);
+      transition: box-shadow 0.2s;
+    }
+    .chat-input input:focus {
+      box-shadow: 0 2px 12px rgba(252,92,125,0.10);
     }
     .chat-input button {
-      background: #4f8cff;
+      background: linear-gradient(90deg, #6a82fb 0%, #fc5c7d 100%);
       color: #fff;
       border: none;
       border-radius: 20px;
-      padding: 10px 18px;
+      padding: 10px 20px;
       font-size: 1em;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(252,92,125,0.08);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     .chat-input button:hover {
-      background: #2563eb;
+      background: linear-gradient(90deg, #fc5c7d 0%, #6a82fb 100%);
+      box-shadow: 0 4px 16px rgba(252,92,125,0.12);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    ::-webkit-scrollbar {
+      width: 7px;
+      background: #f4f6fb;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #e1e6f9;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
   <div class="chat-container">
-    <div class="chat-header">Chatbot</div>
+    <div class="chat-header">
+      <i class="fa-solid fa-robot"></i>
+      Modern Chatbot
+    </div>
     <div class="chat-messages" id="chatMessages"></div>
     <form class="chat-input" id="chatForm" autocomplete="off">
       <input type="text" id="userInput" placeholder="Type your message..." required />
-      <button type="submit">Send</button>
+      <button type="submit"><i class="fa-solid fa-paper-plane"></i> Send</button>
     </form>
   </div>
   <script>
@@ -107,13 +172,17 @@
     // Fixed bot response
     function getBotResponse(userMsg) {
       // You can add more logic here for more features!
-      return "Hello! I'm a simple chatbot. You said: '" + userMsg + "'. How can I help you today?";
+      return "<b>Hello!</b> <span style='color:#fc5c7d'>I'm a modern chatbot</span>.<br>You said: <i>'" + userMsg.replace(/</g, '&lt;').replace(/>/g, '&gt;') + "'</i>.<br>How can I help you today?";
     }
 
     function appendMessage(text, sender) {
       const msgDiv = document.createElement('div');
       msgDiv.className = 'message ' + sender;
-      msgDiv.textContent = text;
+      if(sender === 'bot') {
+        msgDiv.innerHTML = `<span class='bot-icon'><i class='fa-solid fa-robot'></i></span>` + text;
+      } else {
+        msgDiv.textContent = text;
+      }
       chatMessages.appendChild(msgDiv);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
@@ -132,8 +201,8 @@
 
     // Greet on load
     window.onload = () => {
-      appendMessage("Hi! I'm your chatbot. How can I assist you today?", 'bot');
+      appendMessage("<b>Hi!</b> <span style='color:#6a82fb'>I'm your chatbot</span>. How can I assist you today?", 'bot');
     };
   </script>
 </body>
-</html> 
+</html>
