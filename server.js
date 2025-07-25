@@ -1,12 +1,14 @@
 const express = require('express');
 const fetch = require('node-fetch');
 const path = require('path');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
+app.use(cors());
 app.use(express.json());
 
 // In-memory conversation history (for demo, not persistent)
