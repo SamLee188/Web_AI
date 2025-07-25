@@ -7,7 +7,6 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
-app.use(express.static(__dirname));
 app.use(express.json());
 
 // In-memory conversation history (for demo, not persistent)
@@ -42,5 +41,5 @@ app.post('/api/chat', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Backend API running on http://localhost:${PORT}`);
 }); 

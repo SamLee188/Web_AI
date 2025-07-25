@@ -2,6 +2,8 @@ const chatWindow = document.getElementById('chat-window');
 const chatForm = document.getElementById('chat-form');
 const userInput = document.getElementById('user-input');
 
+const BACKEND_URL = 'http://localhost:3000/api/chat';
+
 function appendMessage(sender, text) {
     const msgDiv = document.createElement('div');
     msgDiv.className = `message ${sender}`;
@@ -24,7 +26,7 @@ chatForm.addEventListener('submit', async (e) => {
     userInput.value = '';
     appendMessage('bot', '...');
     try {
-        const res = await fetch('/api/chat', {
+        const res = await fetch(BACKEND_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message })
